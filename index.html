@@ -11,9 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #262B35;
-      --bg-dark: #1F232B;
-      --line: #313744;
+      --bg: #1E2129;
+      --bg-dark: #14161B;
+      --line: #0E1014;
       --text: #F3F4F6;
       --muted: #A3A9B5;
       --icon: #C9CDD4;
@@ -46,7 +46,7 @@
     main { flex-grow: 1; }
     .games {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 300px));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 240px));
       gap: 56px 58px;
       padding-top: 72px; padding-bottom: 96px;
     }
@@ -59,7 +59,7 @@
     }
     .game:hover .cover { transform: scale(1.04); filter: brightness(1.08); }
 
-    .game h2 { margin: 12px 0 0; font-size: 24px; font-weight: 400; line-height: 1.3; color: #fff; }
+    .game h2 { margin: 10px 0 0; font-size: 21px; font-weight: 400; line-height: 1.3; color: #fff; }
     .game h2 a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 
     .rating { font-size: 13px; color: var(--muted); margin-top: -6px; }
@@ -92,7 +92,7 @@
     @media (max-width: 640px) {
       .wrap { padding: 0 20px; }
       .games { grid-template-columns: 1fr; justify-items: center; padding-top: 40px; }
-      .game { width: 100%; max-width: 320px; }
+      .game { width: 100%; max-width: 260px; }
     }
   </style>
 </head>
@@ -101,10 +101,6 @@
   <header>
     <div class="wrap">
       <a href="/"><img class="wordmark" src="logo.png" alt="EgoTrampoline"></a>
-      <nav aria-label="Main menu">
-        <a href="#games">Games</a>
-        <a href="#contact">Contact</a>
-      </nav>
     </div>
   </header>
 
@@ -147,8 +143,7 @@
   <footer id="contact">
     <div class="wrap">
       <img class="mark" src="mark.png" alt="EgoTrampoline">
-      <!-- EDIT: your contact email -->
-      <small><a href="mailto:contact@egotrampoline.com">contact@egotrampoline.com</a> · © 2026 EgoTrampoline</small>
+      <small>© 2026 EgoTrampoline</small>
     </div>
   </footer>
 
