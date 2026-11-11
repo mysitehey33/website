@@ -1,106 +1,156 @@
-<!DOCTYPE html>
-<html lang="tr">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>EgoTrampoline</title>
-    <link rel="icon" type="image/png" href="EgoTrampolineMTransparentWhite.png">
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            min-height: 100vh;
-            background-color: #202226;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-        }
-        .header {
-            width: 100%;
-            background-color: #17181c;
-            border-top: 2px solid #ff5000;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            padding: 0 40px;
-            height: 100px;
-            overflow: hidden;
-        }
-        .main-logo {
-            width: 300px;
-            height: auto;
-        }
-        .content-area {
-            flex: 1;
-            padding: 50px 40px;
-            box-sizing: border-box;
-        }
-        .games-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: flex-start;
-        }
-        .game-card {
-            width: 230px;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: #ffffff;
-            transition: transform 0.2s ease;
-        }
-        .game-card:hover {
-            transform: translateY(-5px);
-        }
-        .game-image {
-            width: 100%;
-            height: auto;
-            border-radius: 4px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .game-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-top: 12px;
-            letter-spacing: 0.5px;
-        }
-        .footer {
-            width: 100%;
-            padding: 30px;
-            background-color: #17181c;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-        }
-        .footer-logo {
-            width: 40px;
-            height: auto;
-            opacity: 0.5;
-            transition: opacity 0.2s ease;
-        }
-        .footer-logo:hover {
-            opacity: 1;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EgoTrampoline</title>
+  <meta name="description" content="EgoTrampoline – indie game studio. Cellar Keeper is out now on Steam, PlayStation and Xbox.">
+  <link rel="icon" href="mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #262B35;
+      --bg-dark: #1F232B;
+      --line: #313744;
+      --text: #F3F4F6;
+      --muted: #A3A9B5;
+      --icon: #C9CDD4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Montserrat, system-ui, -apple-system, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1760px; margin: 0 auto; padding: 0 36px; width: 100%; }
+
+    /* Header */
+    header { background: var(--bg-dark); border-bottom: 1px solid var(--line); }
+    header .wrap {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 16px; padding-top: 22px; padding-bottom: 22px;
+    }
+    .wordmark { height: 26px; width: auto; display: block; }
+    nav { display: flex; gap: 28px; font-size: 14px; font-weight: 500; }
+    nav a { color: var(--muted); }
+    nav a:hover { color: #fff; }
+
+    /* Games grid */
+    main { flex-grow: 1; }
+    .games {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 300px));
+      gap: 56px 58px;
+      padding-top: 72px; padding-bottom: 96px;
+    }
+
+    .game { display: flex; flex-direction: column; gap: 14px; }
+    .game .cover-link { display: block; overflow: hidden; }
+    .game .cover {
+      width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block;
+      transition: transform .35s ease, filter .35s ease;
+    }
+    .game:hover .cover { transform: scale(1.04); filter: brightness(1.08); }
+
+    .game h2 { margin: 12px 0 0; font-size: 24px; font-weight: 400; line-height: 1.3; color: #fff; }
+    .game h2 a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+    .rating { font-size: 13px; color: var(--muted); margin-top: -6px; }
+    .rating:hover { color: #fff; }
+    .rating b { color: #66C0F4; font-weight: 600; } /* Steam's "positive" review blue */
+
+    /* Platform icons */
+    .platforms { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .plat {
+      display: inline-flex; align-items: center; gap: 6px;
+      min-height: 28px; color: var(--icon); font-size: 12px; font-weight: 600;
+    }
+    .plat img { height: 18px; width: auto; display: block; opacity: .85; }
+    .plat:hover img { opacity: 1; }
+    .plat:hover { color: #fff; }
+    /* name is hidden when a logo image exists, shown as text when it doesn't */
+    .plat .name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .plat.nologo .name { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+
+    /* Footer */
+    footer { background: var(--bg-dark); border-top: 1px solid var(--line); }
+    footer .wrap {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 16px; padding-top: 28px; padding-bottom: 28px;
+    }
+    .mark { height: 28px; width: auto; display: block; }
+    footer small { font-size: 13px; color: var(--muted); }
+    footer a:hover { color: #fff; }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 0 20px; }
+      .games { grid-template-columns: 1fr; justify-items: center; padding-top: 40px; }
+      .game { width: 100%; max-width: 320px; }
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <img class="main-logo" src="EgoTrampolineTransWhite.png" alt="EgoTrampoline">
-    </header>
 
-    <main class="content-area">
-        <div class="games-grid">
-            <a class="game-card" href="https://store.steampowered.com/app/4935510/Cellar_Keeper/" target="_blank" rel="noopener noreferrer">
-                <img class="game-image" src="cellar_keeper_library_capsule.png" alt="Cellar Keeper">
-                <span class="game-title">Cellar Keeper</span>
-            </a>
+  <header>
+    <div class="wrap">
+      <a href="/"><img class="wordmark" src="logo.png" alt="EgoTrampoline"></a>
+      <nav aria-label="Main menu">
+        <a href="#games">Games</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="games">
+    <div class="wrap games">
+
+      <!-- ===== Cellar Keeper ===== (copy this whole <article> block for a new game) -->
+      <article class="game">
+        <a class="cover-link" href="https://store.steampowered.com/app/4935510/Cellar_Keeper/" target="_blank" rel="noopener">
+          <img class="cover" src="cellar_keeper_library_capsule.png" alt="Cellar Keeper cover art">
+        </a>
+
+        <h2><a href="https://store.steampowered.com/app/4935510/Cellar_Keeper/" target="_blank" rel="noopener">Cellar Keeper</a></h2>
+
+        <!-- EDIT now and then: rating text -->
+        <a class="rating" href="https://store.steampowered.com/app/4935510/Cellar_Keeper/#app_reviews_hash" target="_blank" rel="noopener"><b>Very Positive</b> · 90% (1.2K+)</a>
+
+        <div class="platforms">
+          <a class="plat" href="https://store.steampowered.com/app/4935510/Cellar_Keeper/" target="_blank" rel="noopener" title="Steam">
+            <img src="steam-logo.svg" alt="" onerror="this.parentNode.classList.add('nologo');this.remove()">
+            <span class="name">Steam</span>
+          </a>
+
+          <a class="plat" href="https://store.playstation.com/en-us/concept/10021337" target="_blank" rel="noopener" title="PlayStation">
+            <img src="playstation-logo.svg" alt="" onerror="this.parentNode.classList.add('nologo');this.remove()">
+            <span class="name">PlayStation</span>
+          </a>
+
+          <a class="plat" href="https://www.xbox.com/en-us/games/store/cellar-keeper/9pg2v74fd5xj" target="_blank" rel="noopener" title="Xbox">
+            <img src="xbox-logo.svg" alt="" onerror="this.parentNode.classList.add('nologo');this.remove()">
+            <span class="name">Xbox</span>
+          </a>
         </div>
-    </main>
+      </article>
+      <!-- ===== /Cellar Keeper ===== -->
 
-    <footer class="footer">
-        <img class="footer-logo" src="EgoTrampolineMTransparentWhite.png" alt="EgoTrampoline Mark">
-    </footer>
+    </div>
+  </main>
+
+  <footer id="contact">
+    <div class="wrap">
+      <img class="mark" src="mark.png" alt="EgoTrampoline">
+      <!-- EDIT: your contact email -->
+      <small><a href="mailto:contact@egotrampoline.com">contact@egotrampoline.com</a> · © 2026 EgoTrampoline</small>
+    </div>
+  </footer>
+
 </body>
 </html>
